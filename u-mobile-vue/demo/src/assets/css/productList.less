@@ -1,0 +1,213 @@
+@import "reset";
+body{
+    background-color:#fff;
+}
+.container{
+    width: 7.5rem;
+    margin: 0 auto;
+    background-color: #fff;
+    padding-top: 0.88rem;
+    padding-bottom: 1.21rem;
+}
+.wrap{
+    width: 7.1rem;
+    margin: 0 auto;
+}
+// 顶部
+.header{
+    position: fixed;
+    left: 0;
+    top: 0;
+    height:0.88rem ;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 1;
+    .con{
+        width: 7.5rem;
+        margin: 0 auto;
+        background-color: #fff;
+    }
+    .wrap{
+        height: 0.88rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    img{
+        width: 0.15rem;
+        height: 0.32rem;
+    }
+    h2{
+        img{
+            width: 1.5rem;
+            height:0.31rem ;
+        }
+    }
+    .points{
+        span{
+            float: left;
+            margin-left: .1rem;
+            width: .12rem;
+            height: .12rem;
+            background-color: #000;
+            border-radius: 50%;
+        }
+    }
+}
+// 搜索
+.search{
+    position: relative;
+    width: 7.5rem;
+    i{
+        position: absolute;
+        left: 2.85rem;
+        top: 0.26rem;
+        display: block;
+        width:0.26rem ;
+        height:0.26rem ;
+        background:url("../images/list_images/search.jpg")  no-repeat;
+        background-size: contain;
+    }
+    input{
+        display: block;
+        width: 6.25rem;
+        height: 0.78rem;
+        background-color: #f26b11;
+        border-radius: 0.5rem;
+        margin: 0.2rem auto 0.32rem;
+        cursor: pointer;
+        box-sizing: border-box;
+        font-size: 0.26rem; 
+        line-height: 0.78rem;
+        padding-left:2.65rem;
+        text-align: left;
+        &::-webkit-input-placeholder{    
+            color:#f1dfd3;
+        }
+    }
+}
+// 商品列表
+.pro-list{
+    margin-top: 0.12rem;
+    width: 7rem;
+    // height:calc( 100% + 1.21rem);
+    background-color: #fff;
+    margin: 0 auto;
+    li{
+        width: 7rem;
+        height: 2.02rem;
+        border-bottom: 1px solid #d1d1d1;
+        .pro-pic{
+            position: relative;
+            float: left;
+            width: 1.78rem;
+            height:2.02rem ;
+            img{
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                width: 1.65rem;
+                height: 1.65rem;
+            }
+        }
+        .pro-des{
+            width: 5.2rem;
+            float: left;
+            margin-top: 0.2rem;
+            padding-left:0.3rem;
+            box-sizing: border-box;
+            .pro-name{
+                font-size: 0.26rem;
+                line-height: 0.36rem;
+                color: #333;
+                height: 0.74rem;
+                width: 4.9rem;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+            }
+            .pro-pri{
+                font-size: 0.24rem;
+                color: #e33939;
+                line-height: 0.55rem;
+                span{
+                    font-size: 0.2rem;
+                }
+            }
+            .count{
+                font-size: 0.22rem;
+                color: #989898;
+                line-height: 0.4rem;
+            }
+        }
+
+    }
+}
+
+
+
+
+// 底部
+footer{
+    position: fixed;
+    left: 0;
+    bottom:0;
+    width: 100%;
+    height: 1.2rem;
+    
+    .menu{
+        width: 7.5rem;
+        margin: 0 auto;
+        height: 1.2rem;
+        border-top:1px solid #e4e4e4 ;
+        background-color: #fff;  
+    }
+    .con{
+        width: 6.3rem;
+        height: 1.2rem;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        background-color: #fff;
+        li{
+            a{
+                font-size: 0.2rem;
+                color:#8a8a8a ;
+                text-align: center;
+                i{
+                    display:block;
+                    width: 0.58rem;
+                    height: 0.58rem;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center top; 
+                    text-align: center;
+                    margin: 0.18rem auto 0;
+                }
+                &:first-child i{
+                    background-image: url("../images/public/icon_8.jpg");
+                }
+                &.center i{
+                     background-image: url("../images/public/icon_7.jpg");
+                }
+                &.right i{
+                    background-image: url("../images/public/icon_5.jpg");
+                }
+            }
+            &.active{
+                a{
+                    color:#f8701a ;
+                    &:first-child i{
+                        background-image: url("../images/public/icon_6.jpg");
+                    }
+                }
+            }
+            p{
+                line-height: 0.38rem;
+            }
+        }
+    } 
+}

@@ -1,0 +1,237 @@
+body {
+  margin: 0;
+  font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-size: 100%;
+  font-weight: normal;
+}
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+p,
+dl,
+dd {
+  margin: 0;
+}
+img {
+  vertical-align: middle;
+  border: none;
+}
+a {
+  text-decoration: none;
+  color: #666;
+}
+strong,
+b {
+  font-weight: normal;
+}
+i,
+em {
+  font-style: normal;
+}
+table {
+  border-collapse: collapse;
+}
+th {
+  font-weight: normal;
+  text-align: left;
+  vertical-align: top;
+}
+td {
+  text-align: left;
+  vertical-align: top;
+}
+input {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: inherit;
+  outline: none;
+  /*去掉输入框的蓝色轮廓框*/
+}
+textarea {
+  resize: none;
+  /* 禁止用户重置元素大小 */
+  overflow: auto;
+  font-family: inherit;
+  outline: none;
+}
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+a,
+input,
+button {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+input,
+button {
+  -webkit-appearance: none;
+}
+input {
+  border-radius: 0;
+}
+input::-webkit-input-placeholder {
+  color: #666;
+  /*  默认的样式 */
+}
+input:focus::-webkit-input-placeholder {
+  color: #666;
+  /* 点击后的样式 */
+}
+body {
+  background-color: #fff;
+}
+.none {
+  display: none;
+}
+.block {
+  display: block;
+}
+.container {
+  width: 7.5rem;
+  margin: 0 auto;
+  background-color: #fff;
+  padding-top: 0.88rem;
+  /* padding-bottom: 50rem; */
+}
+.wrap {
+  width: 7.1rem;
+  margin: 0 auto;
+}
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 0.88rem;
+  width: 100%;
+  margin: 0 auto;
+}
+.header .con {
+  width: 7.5rem;
+  margin: 0 auto;
+  background-color: #f26b11;
+}
+.header .wrap {
+  height: 0.88rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header img {
+  width: 0.17rem;
+  height: 0.29rem;
+}
+.header h2 {
+  font-size: 0.34rem;
+  color: #fff;
+}
+.header .points span {
+  float: left;
+  margin-left: 0.1rem;
+  width: 0.12rem;
+  height: 0.12rem;
+  background-color: #fff;
+  border-radius: 50%;
+}
+.content {
+  width: 7.5rem;
+}
+.content .nav-left {
+  position: fixed;
+  left: 50%;
+  top: 0.88rem;
+  margin-left: -3.75rem;
+  padding: 0.4rem 0;
+  float: left;
+  width: 1.63rem;
+  height: 100%;
+  box-sizing: border-box;
+  border-right: 1px solid #e4e4e4;
+  overflow: scroll;
+}
+.content .nav-left li {
+  position: relative;
+  margin: 0 0 0.62rem 0.45rem;
+}
+.content .nav-left li a {
+  font-size: 0.26rem;
+  color: #666;
+  line-height: 0.54rem;
+}
+.content .nav-left li a::after {
+  position: absolute;
+  left: -0.45rem;
+  top: 0;
+  content: '';
+  display: block;
+  width: 0.08rem;
+  height: 0.55rem;
+  background-color: transparent;
+}
+.content .nav-left li a.active {
+  color: #f26b11;
+}
+.content .nav-left li a.active::after {
+  background-color: #f26b11;
+}
+.content .nav-left li .right {
+  position: fixed;
+  right: 0;
+  top: 0.88rem;
+  padding-top: 0.4rem;
+  float: right;
+  width: 5.87rem;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: scroll;
+  /* margin-bottom: 2rem; */
+}
+.content .nav-left li .right .head {
+  margin-left: 0.56rem;
+}
+.content .nav-left li  .right .head a {
+  font-size: 0.26rem;
+  color: #444;
+  line-height: 0.54rem;
+}
+.content .nav-left li  .right .head a span {
+  float: right;
+  margin-right: 0.43rem;
+}
+.content .nav-left li  .right ul {
+  margin-top: 0.3rem;
+  margin-left: 0.28rem;
+  margin-bottom: 0.9rem;
+}
+.content .nav-left li  .right ul li {
+  float: left;
+  width: 1.54rem;
+  height: 2.05rem;
+  text-align: center;
+  margin-right: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+.content .nav-left li  .right ul li img {
+  width: 1.54rem;
+  height: 1.54rem;
+  margin-bottom: 0.18rem;
+}
+.content .nav-left li  .right ul li a {
+  font-size: 0.24rem;
+  color: #878787;
+}

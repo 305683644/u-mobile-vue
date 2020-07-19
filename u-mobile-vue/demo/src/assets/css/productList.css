@@ -1,0 +1,288 @@
+body {
+  margin: 0;
+  font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-size: 100%;
+  font-weight: normal;
+}
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+p,
+dl,
+dd {
+  margin: 0;
+}
+img {
+  vertical-align: middle;
+  border: none;
+}
+a {
+  text-decoration: none;
+  color: #666;
+}
+strong,
+b {
+  font-weight: normal;
+}
+i,
+em {
+  font-style: normal;
+}
+table {
+  border-collapse: collapse;
+}
+th {
+  font-weight: normal;
+  text-align: left;
+  vertical-align: top;
+}
+td {
+  text-align: left;
+  vertical-align: top;
+}
+input {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: inherit;
+  outline: none;
+  /*去掉输入框的蓝色轮廓框*/
+}
+textarea {
+  resize: none;
+  /* 禁止用户重置元素大小 */
+  overflow: auto;
+  font-family: inherit;
+  outline: none;
+}
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+a,
+input,
+button {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+input,
+button {
+  -webkit-appearance: none;
+}
+input {
+  border-radius: 0;
+}
+input::-webkit-input-placeholder {
+  color: #666;
+  /*  默认的样式 */
+}
+input:focus::-webkit-input-placeholder {
+  color: #666;
+  /* 点击后的样式 */
+}
+body {
+  background-color: #fff;
+}
+.container {
+  width: 7.5rem;
+  margin: 0 auto;
+  background-color: #fff;
+  padding-top: 0.88rem;
+  padding-bottom: 1.21rem;
+}
+.wrap {
+  width: 7.1rem;
+  margin: 0 auto;
+}
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 0.88rem;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 1;
+}
+.header .con {
+  width: 7.5rem;
+  margin: 0 auto;
+  background-color: #fff;
+}
+.header .wrap {
+  height: 0.88rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header img {
+  width: 0.15rem;
+  height: 0.32rem;
+}
+.header h2 img {
+  width: 1.5rem;
+  height: 0.31rem;
+}
+.header .points span {
+  float: left;
+  margin-left: 0.1rem;
+  width: 0.12rem;
+  height: 0.12rem;
+  background-color: #000;
+  border-radius: 50%;
+}
+.search {
+  position: relative;
+  width: 7.5rem;
+}
+.search i {
+  position: absolute;
+  left: 2.85rem;
+  top: 0.26rem;
+  display: block;
+  width: 0.26rem;
+  height: 0.26rem;
+  background: url("../images/list_images/search.jpg") no-repeat;
+  background-size: contain;
+}
+.search input {
+  display: block;
+  width: 6.25rem;
+  height: 0.78rem;
+  background-color: #f26b11;
+  border-radius: 0.5rem;
+  margin: 0.2rem auto 0.32rem;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-size: 0.26rem;
+  line-height: 0.78rem;
+  padding-left: 2.65rem;
+  text-align: left;
+}
+.search input::-webkit-input-placeholder {
+  color: #f1dfd3;
+}
+.pro-list {
+  margin-top: 0.12rem;
+  width: 7rem;
+  background-color: #fff;
+  margin: 0 auto;
+}
+.pro-list li {
+  width: 7rem;
+  height: 2.02rem;
+  border-bottom: 1px solid #d1d1d1;
+}
+.pro-list li .pro-pic {
+  position: relative;
+  float: left;
+  width: 1.78rem;
+  height: 2.02rem;
+}
+.pro-list li .pro-pic img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 1.65rem;
+  height: 1.65rem;
+}
+.pro-list li .pro-des {
+  width: 5.2rem;
+  float: left;
+  margin-top: 0.2rem;
+  padding-left: 0.3rem;
+  box-sizing: border-box;
+}
+.pro-list li .pro-des .pro-name {
+  font-size: 0.26rem;
+  line-height: 0.36rem;
+  color: #333;
+  height: 0.74rem;
+  width: 4.9rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.pro-list li .pro-des .pro-pri {
+  font-size: 0.24rem;
+  color: #e33939;
+  line-height: 0.55rem;
+}
+.pro-list li .pro-des .pro-pri span {
+  font-size: 0.2rem;
+}
+.pro-list li .pro-des .count {
+  font-size: 0.22rem;
+  color: #989898;
+  line-height: 0.4rem;
+}
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.2rem;
+}
+footer .menu {
+  width: 7.5rem;
+  margin: 0 auto;
+  height: 1.2rem;
+  border-top: 1px solid #e4e4e4;
+  background-color: #fff;
+}
+footer .con {
+  width: 6.3rem;
+  height: 1.2rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+}
+footer .con li a {
+  font-size: 0.2rem;
+  color: #8a8a8a;
+  text-align: center;
+}
+footer .con li a i {
+  display: block;
+  width: 0.58rem;
+  height: 0.58rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center top;
+  text-align: center;
+  margin: 0.18rem auto 0;
+}
+footer .con li a:first-child i {
+  background-image: url("../images/public/icon_8.jpg");
+}
+footer .con li a.center i {
+  background-image: url("../images/public/icon_7.jpg");
+}
+footer .con li a.right i {
+  background-image: url("../images/public/icon_5.jpg");
+}
+footer .con li.active a {
+  color: #f8701a;
+}
+footer .con li.active a:first-child i {
+  background-image: url("../images/public/icon_6.jpg");
+}
+footer .con li p {
+  line-height: 0.38rem;
+}

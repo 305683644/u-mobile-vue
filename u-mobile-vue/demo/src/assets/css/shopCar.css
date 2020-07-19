@@ -1,0 +1,380 @@
+body {
+  margin: 0;
+  font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-size: 100%;
+  font-weight: normal;
+}
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+p,
+dl,
+dd {
+  margin: 0;
+}
+img {
+  vertical-align: middle;
+  border: none;
+}
+a {
+  text-decoration: none;
+  color: #666;
+}
+strong,
+b {
+  font-weight: normal;
+}
+i,
+em {
+  font-style: normal;
+}
+table {
+  border-collapse: collapse;
+}
+th {
+  font-weight: normal;
+  text-align: left;
+  vertical-align: top;
+}
+td {
+  text-align: left;
+  vertical-align: top;
+}
+input {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: inherit;
+  outline: none;
+  /*去掉输入框的蓝色轮廓框*/
+}
+textarea {
+  resize: none;
+  /* 禁止用户重置元素大小 */
+  overflow: auto;
+  font-family: inherit;
+  outline: none;
+}
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+a,
+input,
+button {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+input,
+button {
+  -webkit-appearance: none;
+}
+input {
+  border-radius: 0;
+}
+input::-webkit-input-placeholder {
+  color: #666;
+  /*  默认的样式 */
+}
+input:focus::-webkit-input-placeholder {
+  color: #666;
+  /* 点击后的样式 */
+}
+body {
+  background-color: #fff;
+}
+.container {
+  width: 7.5rem;
+  margin: 0 auto;
+  background-color: #fff;
+  padding-top: 0.88rem;
+  padding-bottom: 2.37rem;
+}
+.wrap {
+  width: 7.1rem;
+  margin: 0 auto;
+}
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 0.88rem;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  z-index: 1;
+}
+.header .con {
+  width: 7.5rem;
+  margin: 0 auto;
+  background-color: #f26b11;
+}
+.header .wrap {
+  height: 0.88rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header img {
+  width: 0.17rem;
+  height: 0.29rem;
+}
+.header h2 {
+  font-size: 0.34rem;
+  color: #fff;
+}
+.header .points span {
+  float: left;
+  margin-left: 0.1rem;
+  width: 0.12rem;
+  height: 0.12rem;
+  background-color: #fff;
+  border-radius: 50%;
+}
+.check-list {
+  overflow: hidden;
+  margin-top: 0.26rem;
+}
+.check-list li {
+  position: relative;
+  /* left: -0.98rem; */
+  height: 1.73rem;
+  background-color: #fff;
+  box-shadow: 0 0 0.05rem 0 #e0e0e0;
+  margin-bottom: 0.3rem;
+  padding: 0 0.22rem;
+  display: flex;
+  align-items: center;
+}
+.check-list li i {
+  display: block;
+  width: 0.3rem;
+  height: 0.3rem;
+  border: 0.02rem solid #cacaca;
+  border-radius: 50%;
+}
+.check-list li i.checked {
+  border-color: #de2d27;
+  background: url("../images/shoping_car_images/select.jpg");
+  background-size: 60% 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.check-list li .pro-pic {
+  position: relative;
+  width: 1.34rem;
+  height: 1.34rem;
+  margin: 0 0.2rem 0 0.26rem;
+}
+.check-list li .pro-pic img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+.check-list li .pro-detail .pro-name {
+  font-size: 0.26rem;
+  color: #333;
+}
+.check-list li .pro-detail .pro-type {
+  margin-top: 0.28rem;
+  font-size: 0.22rem;
+  color: #676767;
+}
+.check-list li .pro-detail .pro-pri {
+  margin-top: 0.26rem;
+  font-size: 0.24rem;
+  color: #e43a3d;
+}
+.check-list li .button {
+  position: absolute;
+  right: 0.29rem;
+  top: 0.9rem;
+  line-height: 1;
+  width: 2.1rem;
+  height: 0.56rem;
+  border: 1px solid #454545;
+  border-radius: 0.04rem;
+  background-color: #fff;
+  display: flex;
+}
+.check-list li .button input {
+  text-align: center;
+  line-height: 0.56rem;
+  font-size: 0.3rem;
+  background-color: transparent;
+}
+.check-list li .button input.subtract {
+  width: 0.62rem;
+  color: #464646;
+}
+.check-list li .button input.text {
+  font-size: 0.24rem;
+  width: 0.84rem;
+  border-left: 1px solid #454545;
+  border-right: 1px solid #454545;
+  color: #444;
+}
+.check-list li .button input.add {
+  width: 0.62rem;
+  color: #464646;
+}
+.check-list li .del {
+  position: absolute;
+  top: 0;
+  right: -0.98rem;
+  width: 0.98rem;
+  height: 1.73rem;
+  background-color: #e43a3d;
+  font-size: 0.24rem;
+  color: #fff;
+  text-align: center;
+  line-height: 1.73rem;
+}
+.check-list .active {
+  position: relative;
+  left: -0.98rem;
+}
+.Settlement {
+  position: relative;
+  position: fixed;
+  left: 50%;
+  margin-left: -3.75rem;
+  bottom: 1.2rem;
+  height: 1.15rem;
+  width: 7.5rem;
+  border-top: 1px solid #e4e4e4;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+}
+.Settlement .all {
+  display: flex;
+  font-size: 0.24rem;
+  color: #666;
+
+}
+.Settlement .all i {
+  display: block;
+  width: 0.3rem;
+  height: 0.3rem;
+  border: 0.02rem solid #cacaca;
+  border-radius: 50%;
+  margin: 0 0.15rem 0 0.26rem;
+}
+.Settlement .all .checked {
+  display: block;
+  width: 0.3rem;
+  height: 0.3rem;
+  border: 0.02rem solid #cacaca;
+  border-radius: 50%;
+  border-color: #de2d27;
+  background: url("../images/shoping_car_images/select.jpg");
+  background-size: 60% 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 0.15rem 0 0.26rem;
+}
+.Settlement .all span {
+  margin-top: 0.06rem;
+}
+.Settlement .total {
+  position: absolute;
+  top: 0.24rem;
+  right: 2.84rem;
+  font-size: 0.26rem;
+  color: #333;
+  text-align: right;
+}
+.Settlement .total span {
+  color: #e43a3b;
+}
+.Settlement .total .state {
+  font-size: 0.18rem;
+  color: #a4a4a4;
+  margin-top: 0.18rem;
+}
+.Settlement input {
+  position: absolute;
+  top: -0.01rem;
+  right: 0;
+  width: 2.47rem;
+  height: 1.16rem;
+  background-color: #f26b11;
+  font-size: 0.28rem;
+  color: #fff;
+  text-align: center;
+  line-height: 1.16rem;
+}
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.2rem;
+}
+footer .menu {
+  width: 7.5rem;
+  margin: 0 auto;
+  height: 1.2rem;
+  border-top: 1px solid #e4e4e4;
+  background-color: #fff;
+}
+footer .con {
+  width: 6.3rem;
+  height: 1.2rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+}
+footer .con li a {
+  font-size: 0.2rem;
+  color: #8a8a8a;
+  text-align: center;
+}
+footer .con li a i {
+  display: block;
+  width: 0.58rem;
+  height: 0.58rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center top;
+  text-align: center;
+  margin: 0.18rem auto 0;
+}
+footer .con li a:first-child i {
+  background-image: url("../images/public/icon_8.jpg");
+}
+footer .con li a.center i {
+  background-image: url("../images/public/icon_7.jpg");
+}
+footer .con li a.right i {
+  background-image: url("../images/public/icon_5.jpg");
+}
+footer .con li.active a {
+  color: #f8701a;
+}
+footer .con li.active a:first-child i {
+  background-image: url("../images/public/icon_9.jpg");
+}
+footer .con li p {
+  line-height: 0.38rem;
+}

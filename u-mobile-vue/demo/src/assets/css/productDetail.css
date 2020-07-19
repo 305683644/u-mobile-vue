@@ -1,0 +1,418 @@
+body {
+  margin: 0;
+  font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-size: 100%;
+  font-weight: normal;
+}
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+p,
+dl,
+dd {
+  margin: 0;
+}
+img {
+  vertical-align: middle;
+  border: none;
+}
+a {
+  text-decoration: none;
+  color: #666;
+}
+strong,
+b {
+  font-weight: normal;
+}
+i,
+em {
+  font-style: normal;
+}
+table {
+  border-collapse: collapse;
+}
+th {
+  font-weight: normal;
+  text-align: left;
+  vertical-align: top;
+}
+td {
+  text-align: left;
+  vertical-align: top;
+}
+input {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: inherit;
+  outline: none;
+  /*去掉输入框的蓝色轮廓框*/
+}
+textarea {
+  resize: none;
+  /* 禁止用户重置元素大小 */
+  overflow: auto;
+  font-family: inherit;
+  outline: none;
+}
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+a,
+input,
+button {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+input,
+button {
+  -webkit-appearance: none;
+}
+input {
+  border-radius: 0;
+}
+input::-webkit-input-placeholder {
+  color: #666;
+  /*  默认的样式 */
+}
+input:focus::-webkit-input-placeholder {
+  color: #666;
+  /* 点击后的样式 */
+}
+body {
+  background-color: #f1f1f1;
+}
+.container {
+  
+  width: 7.5rem;
+  margin: 0 auto;
+  background-color: #f1f1f1;
+  padding-top: 0.88rem;
+  padding-bottom: 1.15rem;
+}
+.wrap {
+  width: 7.1rem;
+  margin: 0 auto;
+}
+h3 {
+  font-size: 0.3rem;
+  color: #454545;
+  height: 1rem ;
+  line-height: 1rem;
+}
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 0.88rem;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  z-index: 1;
+}
+.header .con {
+  width: 7.5rem;
+  margin: 0 auto;
+  background-color: #f26b11;
+}
+.header .wrap {
+  height: 0.88rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header img {
+  width: 0.17rem;
+  height: 0.29rem;
+}
+.header h2 {
+  font-size: 0.34rem;
+  color: #fff;
+}
+.header .points span {
+  float: left;
+  margin-left: 0.1rem;
+  width: 0.12rem;
+  height: 0.12rem;
+  background-color: #fff;
+  border-radius: 50%;
+}
+.main {
+  width: 7.5rem;
+  height: 9.53rem;
+  background-color: #fff;
+}
+.main .main-pic {
+  width: 7.5rem;
+  height: 7.48rem;
+}
+.main .main-pic img {
+  width: 7.5rem;
+}
+.main .pro-des {
+  width: 7.5rem;
+  height: 2.05rem;
+  padding: 0 0.36rem;
+  box-sizing: border-box;
+}
+.main .pro-des .pro-name {
+  font-size: 0.3rem;
+  color: #323232;
+  line-height: 0.48rem;
+  margin-top: 0.22rem;
+}
+.main .pro-des .pro-pri {
+  font-size: 0.24rem;
+  color: #e7383d;
+  line-height: 0.83rem;
+}
+.main .pro-des .pro-pri span {
+  font-size: 0.22rem;
+  color: #878787;
+}
+.choose {
+  margin-top: 0.17rem;
+  height: 3.98rem;
+  background-color: #fff;
+  font-size: 0.26rem;
+  color: #454545;
+}
+.choose .sale {
+  height: 0.99rem;
+  border-bottom: 1px solid #f1f1f1;
+  padding: 0 0.23rem;
+  line-height: 0.99rem;
+}
+.choose .sale em {
+  vertical-align: 0.02rem;
+  margin: 0 0.14rem;
+  display: inline-block;
+  font-size: 0.2rem;
+  color: #b0281a;
+  padding: 0.07rem 0.1rem;
+  line-height: 1;
+  border: 1px solid #b0281a;
+  border-radius: 0.06rem;
+}
+.choose .sale span {
+  font-size: 0.24rem;
+}
+.choose .sale a {
+  float: right;
+}
+.choose .sale a img {
+  width: 0.35rem;
+  height: 0.21rem;
+}
+.choose .count {
+  position: relative;
+  height: 1.09rem;
+  border-bottom: 1px solid #f1f1f1;
+  padding: 0 0.23rem;
+  line-height: 1.09rem;
+}
+.choose .count .button {
+  position: absolute;
+  right: 0.23rem;
+  top: 0.265rem;
+  line-height: 1;
+  width: 2.1rem;
+  height: 0.56rem;
+  border: 1px solid #454545;
+  border-radius: 0.04rem;
+  background-color: #fff;
+  display: flex;
+}
+.choose .count .button input {
+  text-align: center;
+  line-height: 0.56rem;
+  font-size: 0.3rem;
+  background-color: transparent;
+}
+.choose .count .button input.subtract {
+  width: 0.62rem;
+  color: #464646;
+}
+.choose .count .button input.text {
+  width: 0.84rem;
+  border-left: 1px solid #454545;
+  border-right: 1px solid #454545;
+  color: #444;
+}
+.choose .count .button input.add {
+  width: 0.62rem;
+  color: #464646;
+}
+.choose .type {
+  height: 1.88rem;
+  padding: 0 0.23rem;
+}
+.choose .type .top {
+  margin-top: 0.14rem;
+  line-height: 0.8rem;
+}
+.choose .type .top a {
+  float: right;
+}
+.choose .type .top a img {
+  width: 0.35rem;
+  height: 0.21rem;
+}
+.choose .type .bottom {
+  display: flex;
+  align-items: center;
+  font-size: 0.24rem;
+  color: #b5b5b5;
+}
+.choose .type .bottom p {
+  width: 1.15rem;
+}
+.choose .type .bottom span {
+  display: block;
+  color: #fff;
+  padding: 0.18rem 0.5rem;
+  background-color: #e1e1e3;
+  margin: 0 0.08rem;
+  border-radius: 0.1rem;
+  cursor: pointer;
+}
+.choose .type .bottom span.checked {
+  background-color: #e43a3d;
+}
+.pro-detail {
+  margin-top: 0.2rem;
+  background-color: #fff;
+}
+.pro-detail h3 {
+  padding: 0 0.23rem;
+}
+.pro-detail img {
+  width: 7.5rem;
+}
+.pro-evaluate {
+  height: 5.63rem;
+  margin-top: 0.2rem;
+  background-color: #fff;
+  padding: 0 0.23rem;
+}
+.pro-evaluate h3 {
+  height: 0.95rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+.pro-evaluate .evaluate {
+  display: flex;
+  flex-direction: column;
+  height: 3.8rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+.pro-evaluate .evaluate .user-name {
+  margin-top: 0.3rem;
+  font-size: 0.2rem;
+  color: #666;
+}
+.pro-evaluate .evaluate .comment {
+  margin-top: 0.35rem;
+  font-size: 0.26rem;
+  color: #454545;
+}
+.pro-evaluate .evaluate .pic-list {
+  margin-top: 0.35rem;
+}
+.pro-evaluate .evaluate .pic-list img {
+  width: 1.55rem;
+  height: 1.52rem;
+}
+.pro-evaluate .evaluate .time {
+  margin-top: 0.35rem;
+  font-size: 0.2rem;
+  color: #999;
+}
+.pro-evaluate .count {
+  margin-top: 0.3rem;
+  font-size: 0.2rem;
+  color: #9a9a9a;
+}
+.pro-evaluate .count a {
+  float: right;
+  font-size: 0.2rem;
+  color: #9a9a9a;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.15rem;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.footer .con {
+  width: 7.5rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-start;
+  text-align: center;
+}
+.footer .con input {
+  line-height: 1.15rem;
+  font-size: 0.3rem;
+  color: #fff;
+  background-color: transparent;
+}
+.footer .con .count {
+  position: relative;
+  width: 1.72rem;
+  height: 1.14rem;
+  background-color: #fff;
+  border-top: 1px solid #f1f1f1;
+}
+.footer .con .count b {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -0.28rem;
+  margin-top: -0.28rem;
+  display: block;
+  width: 0.56rem;
+  height: 0.56rem;
+  background-size: contain;
+  background-image: url("../images/public/icon_7.jpg");
+}
+.footer .con .count i {
+  position: absolute;
+  left: 0.95rem;
+  top: 0.23rem;
+  display: block;
+  width: 0.24rem;
+  height: 0.24rem;
+  background-color: #e6393d;
+  border-radius: 50%;
+  font-size: 0.14rem;
+  color: #fff;
+  text-align: center;
+  line-height: 0.24rem;
+}
+.footer .con .join {
+  width: 2.9rem;
+  height: 1.15rem;
+  background-color: #f26b11;
+}
+.footer .con .buy {
+  width: 2.88rem;
+  height: 1.15rem;
+  background-color: #e43a3d;
+}
