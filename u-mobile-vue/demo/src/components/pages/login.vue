@@ -12,14 +12,16 @@
         <div>
           <span class="span1 iconfont">&#xe612;</span>
           <!-- 用户名： -->
-          <input type="text" v-model="userInfo.name" placeholder="请输入用户名" />
+          <input type="text" v-model="userInfo.nickname" placeholder="请输入手机号" />
         </div>
         <div>
           <span class="span2 iconfont">&#xe668;</span>
           <!-- 密码： -->
-          <input type="text" v-model="userInfo.pass" placeholder="请输入密码" />
+          <input type="text" v-model="userInfo.password" placeholder="请输入密码" />
+          <div class="forget" >忘记密码</div>
         </div>
-        <button @click="login">LOGIN</button>
+        <button @click="login">登录</button>
+        <div class="register"  >没有账号？<a @click="register" >去注册</a></div>
       </div>
     </div>
   </div>
@@ -31,21 +33,24 @@ export default {
     return {
       title: "登录",
       userInfo: {
-        name: "",
-        pass: ""
+        nickname: "",
+        password: ""
       }
     };
   },
   methods: {
+    register(){
+      this.$router.push("/register");
+    },
     //封装一个登录事件
     login() {
       //前端做空判断
-      if (this.userInfo.name == "" || this.userInfo.pass == "") {
+      if (this.userInfo.nickname == "" || this.userInfo.password == "") {
         alert("请输入用户名或者密码");
       } else {
         //调取接口
         //模拟登录成功
-        if (this.userInfo.name == "admin" && this.userInfo.pass == "123") {
+        if (this.userInfo.nickname == "admin" && this.userInfo.password == "123456") {
           //把登录状态存储到本地存储中
           sessionStorage.setItem("isLogin", "登录");
           //跳转到首页
@@ -64,10 +69,10 @@ export default {
   width: 7.5rem;
   margin: 0 auto;
   background-color: #fff;
-  padding-top: 0.88rem;
+  padding-top: 0.6rem;
   /* padding-bottom: 2.37rem; */
-  padding-bottom: 4.34rem;
-  background: orangered;
+  padding-bottom: 3rem;
+  background: rgb(248, 97, 42);
   text-align: center;
 }
 .wrap {
@@ -110,14 +115,31 @@ p {
 }
 span {
   position: absolute;
-  left: 1rem;
+  left: 50%;
+  /* top: 50%; */
+  margin-left: -2.7rem;
+  /* left: 1rem; */
   font-size: 0.45rem;
   color: #666;
 }
 .span1 {
-  top: 5.1rem;
+  margin-top: 0.3rem;
 }
 .span2 {
-  top: 6.48rem;
+  margin-top: 0.3rem;
+}
+.forget{
+  padding: 0 0.7rem 0.5rem;
+  text-align: right;
+  font-size: 0.3rem;
+  color: #fff;
+}
+.register{
+  padding: 0 0.7rem 0.5rem;
+  font-size: 0.3rem;
+  color: #fff;
+}
+.register a{
+  color:#67b1fc;
 }
 </style>

@@ -58,6 +58,10 @@ const r = new Router({
       path: '/login',
       component:()=>import('@/components/pages/login')
     },
+    {
+      path: '/register',
+      component:()=>import('@/components/pages/register')
+    },
     {//重定向
       path:'*',
       redirect:'/index'
@@ -72,6 +76,10 @@ r.beforeEach((to,from,next)=>{
      next()
      return
  }
+ if(to.path=='/register'){
+  next()
+  return
+}
  //判断当前账号是否登录，如果登录，就next，否则就依然是去登录页
  let isLogin = sessionStorage.getItem('isLogin')
  if(isLogin){
