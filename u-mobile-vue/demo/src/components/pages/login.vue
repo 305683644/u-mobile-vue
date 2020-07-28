@@ -1,6 +1,12 @@
 <template>
   <div>
     <div class="container">
+      <div class="arrow">
+        <a  @click='$router.go(-1)'>
+                    <img src="../../assets/images/public/arrow.jpg" alt="">
+                </a>
+      </div>
+      
       <!-- 顶部 -->
       <!-- <top :title='title'></top> -->
 
@@ -10,9 +16,9 @@
           <img src="../../assets/images/list_images/logo.png" alt />
         </div>
         <div>
-          <span class="span1 iconfont">&#xe612;</span>
+          <span class="span1 iconfont">&#xe660;</span>
           <!-- 用户名： -->
-          <input type="text" v-model="userInfo.nickname" placeholder="请输入手机号" />
+          <input type="text" v-model="userInfo.phone" placeholder="请输入手机号" />
         </div>
         <div>
           <span class="span2 iconfont">&#xe668;</span>
@@ -28,12 +34,15 @@
 </template>
 
 <script>
+import { Toast } from 'vant'
+import {login} from '../../util/axios'
+
 export default {
   data() {
     return {
       title: "登录",
       userInfo: {
-        nickname: "",
+        phone: "",
         password: ""
       }
     };
@@ -44,21 +53,31 @@ export default {
     },
     //封装一个登录事件
     login() {
-      //前端做空判断
-      if (this.userInfo.nickname == "" || this.userInfo.password == "") {
-        alert("请输入用户名或者密码");
+      login(this.userInfo).then((res) => {
+        //前端做空判断
+      if (this.userInfo.phone == "" || this.userInfo.password == "") {
+        Toast.fail("请输入手机号或者密码")
       } else {
         //调取接口
         //模拟登录成功
-        if (this.userInfo.nickname == "admin" && this.userInfo.password == "123456") {
-          //把登录状态存储到本地存储中
-          sessionStorage.setItem("isLogin", "登录");
-          //跳转到首页
-          this.$router.push("/home");
-        } else {
-          alert("用户名或者密码错误");
+        if (res.code == 200) {
+                    Toast.success(res.msg)
+                    //清空输入框 并 跳转到个人中心页面
+                    this.userInfo = {
+                        phone: '',
+                        password: '',
+                    }
+                    //把数据存储到本地存储中
+                    sessionStorage.setItem('userInfo',JSON.stringify(res.list))
+                    this.$router.push('/car')
+                } else if (res.code == 500) {
+                    Toast.fail(res.msg)
+                } else {
+                    Toast.fail(res.msg)
+                }
         }
-      }
+      })
+      
     }
   }
 };
@@ -71,13 +90,21 @@ export default {
   background-color: #fff;
   padding-top: 0.6rem;
   /* padding-bottom: 2.37rem; */
-  padding-bottom: 3rem;
+  padding-bottom: 3.2rem;
   background: rgb(248, 97, 42);
   text-align: center;
 }
 .wrap {
   width: 7.1rem;
   margin: 0 auto;
+}
+.arrow{
+  text-align: left;
+  margin-left:0.3rem ;
+}
+.arrow img {
+  width: 0.17rem;
+  height: 0.29rem;
 }
 input {
   width: 6rem;
@@ -105,7 +132,7 @@ button {
 }
 p {
   color: #fff;
-  margin-top: 1.4rem;
+  margin-top: 1rem;
   margin-bottom: 0.4rem;
   font-size: 0.7rem;
 }

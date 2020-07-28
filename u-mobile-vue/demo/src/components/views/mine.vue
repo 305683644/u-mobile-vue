@@ -10,8 +10,8 @@
                     <img src="../../assets/images/mine_images/head.jpg" alt="">
                 </i>
                 <div class="user-message">
-                    <p class="user-name">悠溯</p>
-                    <p class="level">V1</p>
+                    <p class="user-name">{{userInfo.nickname}}</p>
+                    <p class="level"  v-if="userInfo.nickname">V1</p>
                 </div>
             </div>
             <P class="sign-in">
@@ -34,7 +34,7 @@
             </li>
             <li class="wallet">
                 <p><img class="icon" src="../../assets/images//mine_images/icon_5.jpg" alt="">我的钱包</p>
-                <span>200余额</span>
+                <span  v-if="userInfo.nickname">200余额</span>
                 <a href="#"><img src="../../assets/images/public/right.jpg" alt=""></a>
             </li>
             <li>
@@ -49,7 +49,10 @@
                 <p><img class="icon" src="../../assets/images//mine_images/icon_8.jpg" alt="">我的小伙伴</p>
                 <a href="#"><img src="../../assets/images/public/right.jpg" alt=""></a>
             </li>
+            <van-button v-if="userInfo.nickname" type="info" block  @click="quit">退出登录</van-button>
+            <van-button v-else type="info" block @click="$router.push('/login')">未登录</van-button>
         </ul>
+        
 
     </div>
     
@@ -59,11 +62,27 @@
 export default {
     data(){
         return{
-            title:"我的订单"
+            title:"我的订单",
+            userInfo:{}
         }
-    }
+    },
+    mounted() {
+        //组件一加载 就获取登录信息
+        this.userInfo = sessionStorage.getItem('userInfo') ? JSON.parse(sessionStorage.getItem('userInfo')) :{}
+    },
+    methods: {
+        //退出登录时间
+        quit(){
+            //清除登录信息
+            sessionStorage.removeItem('userInfo')
+            this.userInfo = {}
+        }
+    },
 }
 </script>
 <style scoped>
 @import '../../assets/css/mine.css';
+.van-button{
+    margin: 0.3rem 0;
+}
 </style>

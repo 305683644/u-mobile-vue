@@ -29,6 +29,10 @@ const r = new Router({
           component:()=>import('@/components/views/search')
         },
         {
+          path:"/goodsList",
+          component:()=>import('@/components/views/goodsList')
+        },
+        {
           path:"/car",
           component:()=>import('@/components/views/car')
         },
@@ -47,8 +51,8 @@ const r = new Router({
       ]
     },
     {
-      path: '/goodsList',
-      component: ()=>import('@/components/pages/goodsList')
+      path: '/classify',
+      component: ()=>import('@/components/pages/classify')
     },
     {
       path: '/goodsDetail',
@@ -68,26 +72,26 @@ const r = new Router({
     }
   ]
 })
-r.beforeEach((to,from,next)=>{
-  //当我们没有写next的时候，就被拦截
-  //逻辑判断 如果你跳转的地址是登录就next,否则我就强制跳转到登录
- // next()
- if(to.path=='/login'){
-     next()
-     return
- }
- if(to.path=='/register'){
-  next()
-  return
-}
- //判断当前账号是否登录，如果登录，就next，否则就依然是去登录页
- let isLogin = sessionStorage.getItem('isLogin')
- if(isLogin){
-     next()
-     return
-  }
- next('/login')
-})
+// r.beforeEach((to,from,next)=>{
+//   //当我们没有写next的时候，就被拦截
+//   //逻辑判断 如果你跳转的地址是登录就next,否则我就强制跳转到登录
+//  // next()
+//  if(to.path=='/login'){
+//      next()
+//      return
+//  }
+//  if(to.path=='/register'){
+//   next()
+//   return
+// }
+//  //判断当前账号是否登录，如果登录，就next，否则就依然是去登录页
+//  let isLogin = sessionStorage.getItem('isLogin')
+//  if(isLogin){
+//      next()
+//      return
+//   }
+//  next('/login')
+// })
 
 
 

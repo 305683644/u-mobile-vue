@@ -4,8 +4,8 @@
         <footer>
          <div class="menu">
             <ul class="con">
-                <router-link tag="li" activeClass='active1' :class="[this.$route.path=='/search'?'active1':'']" to="/home"><a href="#"><i></i><p>首页</p></a></router-link>
-                <router-link tag="li" activeClass='active2' :class="[this.$route.path=='/pay'?'active2':'']" to="/car"><a href="#" class="center"><i></i><p>购物车</p></a></router-link>
+                <router-link tag="li" activeClass='active1' :class="{'active1':$route.path=='/search','active1':$route.path=='/goodsList'}" to="/home"><a href="#"><i></i><p>首页</p></a></router-link>
+                <router-link tag="li" activeClass='active2' :class="[$route.path=='/pay'?'active2':'']" to="/car"><a href="#" class="center"><i></i><p>购物车</p></a></router-link>
                 <router-link tag="li" activeClass='active3' to="/mine"><a href="#" class="right"><i></i><p>我的</p></a></router-link>
 
             </ul>

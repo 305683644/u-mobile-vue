@@ -1,6 +1,11 @@
 <template>
   <div>
     <div class="container">
+      <div class="arrow">
+        <a  @click='$router.go(-1)'>
+                    <img src="../../assets/images/public/arrow.jpg" alt="">
+                </a>
+      </div>
       <!-- 顶部 -->
       <!-- <top :title='title'></top> -->
 
@@ -27,13 +32,13 @@
         <div>
           <span class="span2 iconfont">&#xe623;</span>
           <!--验证码： -->
-          <input type="text" v-model="userInfo.randstr" placeholder="请输入验证码" /> 
+          <input type="text" v-model="randstr" placeholder="请输入验证码" /> 
           <span  @click="changeCode" class="code">{{code}} </span>
         </div>
           <div class="forget"  @click="allCheck">
-            <label>
+            <label  >
                    <input type="checkbox" hidden >
-                   <i :class="{'checked':this.checkAll}"></i>
+                   <i  @click="allCheck" :class="{'checked':this.checkAll}"></i>
                 </label>
             我已阅读并同意使用条款和隐私政策</div>
         </div>
@@ -45,7 +50,10 @@
 </template>
 
 <script>
+import { Toast } from 'vant'
+import { register } from '../../util/axios'
 export default {
+  
   data() {
     return {
       reg:/^1[356789]\d{9}$/i,
@@ -57,9 +65,9 @@ export default {
       userInfo: {
         nickname: "",
         phone:"",
-        password: "",
-        randstr:""
-      }
+        password: ""
+      },
+      randstr:''
     };
   },
   mounted(){
@@ -93,30 +101,40 @@ export default {
     },
     //封装一个注册事件
     register() {
-      //前端做空判断
-      if (this.userInfo.nickname == "" || this.userInfo.password == "" ) {
-        alert("请输入用户名或者密码");
-      } else {
-        //调取接口
-        //模拟注册成功
-        if (this.userInfo.nickname == "admin" && this.userInfo.password == "123456"  ) {
-          if(this.userInfo.phone!==this.reg){
-            alert("手机号码格式错误");
-          }else if(this.userInfo.randstr!==this.code){
-            alert("验证码错误");
+      //调取接口
+      register(this.userInfo).then((res) => {
+         //前端做空判断
+         if (this.userInfo.nickname == "" || this.userInfo.phone== "" || this.userInfo.password == "" ) {
+        Toast.fail("请填写完整信息");
+      } else 
+      if(!(this.reg.test(this.userInfo.phone))){
+            Toast.fail("手机号码格式错误");
+          }else
+           if(this.randstr!==this.code){
+            Toast.fail("验证码错误");
           }else if(this.checkAll==false){
-            alert("同意该协议才可注册");
+            Toast.fail("同意该协议才可注册");
           }else{
-            this.$router.push("/login");
-            //把注册状态存储到本地存储中
-            sessionStorage.setItem("isLogin", "登录");
+            if (res.code == 200) {
+                    Toast.success(res.msg)
+                    //清空输入框 并 跳转到登录界面
+                    this.userInfo = {
+                        phone: '',
+                        password: '',
+                        nickname: '',
+                    }
+                    this.randstr=''
+                    this.$router.push('/login')
+                } else if (res.code == 500) {
+                    Toast.fail(res.msg)
+                } else {
+                    Toast.fail(res.msg)
+                }
           }
-          
-        } else {
-          alert("用户名已注册");
-        }
-      }
-    }
+        
+      
+      })
+    },
   }
 };
 </script>
@@ -131,6 +149,14 @@ export default {
   padding-bottom: 1rem;
   background: rgb(248, 97, 42);
   text-align: center;
+}
+.arrow{
+  text-align: left;
+  margin-left:0.3rem ;
+}
+.arrow img {
+  width: 0.17rem;
+  height: 0.29rem;
 }
 .wrap {
   width: 7.1rem;
@@ -162,8 +188,8 @@ button {
 }
 p {
   color: #fff;
-  margin-top: 0.6rem;
-  margin-bottom: 0.4rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.3rem;
   font-size: 0.7rem;
 }
 .img {

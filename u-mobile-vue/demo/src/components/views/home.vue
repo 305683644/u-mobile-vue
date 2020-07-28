@@ -33,14 +33,19 @@
             </nav>
         </div>
         <!-- 轮播图 -->
-        <div class="banner">
+        <van-swipe class="banner" :autoplay="3000" indicator-color="white">
+            <van-swipe-item v-for="(image, index) in images" :key="index">
+                <img :src="$imgUrl+image.img" />
+            </van-swipe-item>
+        </van-swipe>
+        <!-- <div class="banner">
             <a >
                 <img src="../../assets/images/index_images/banner.jpg" alt="">
             </a>
             <a >
                 <img src="../../assets/images/index_images/banner.jpg" alt="">
             </a>
-        </div>
+        </div> -->
         <!-- icon导航 -->
         <div class="icon-nav">
             <div class="item">
@@ -61,7 +66,7 @@
                     <p>联系我们</p>
                 </a>
             </div>
-            <div class="item" @click="goGoodsList">
+            <div class="item" @click="goClassify">
                 <a >
                     <img src="../../assets/images/index_images/icon_4.jpg" alt="">
                     <p>商品分类</p>
@@ -74,7 +79,18 @@
                 <a >
                     <h3><img src="../../assets/images/index_images/timer.jpg">限时秒杀</h3>
                     <p class="des">每天零点场 好货秒不停</p>
-                    <p class="time"><span>19</span>:<span>30</span>:<span>29</span> <i>秒杀</i></p>
+                    <p class="time">
+                        <van-count-down :time="time" >
+                            <template v-slot="timeData">
+                                <span class="block">{{ timeData.hours }}</span>:
+                                <!-- <span class="colon"></span> -->
+                                <span class="block">{{ timeData.minutes }}</span>:
+                                <!-- <span class="colon"></span> -->
+                                <span class="block">{{ timeData.seconds }}</span>
+                            </template>
+                            </van-count-down>
+                        <!-- <span>19</span>:<span>30</span>:<span>29</span>  -->
+                        <i>秒杀</i></p>
                     <img class="pic" src="../../assets/images/index_images/shop_5.jpg" alt="">
                     <div class="price">￥ <span>14.8</span></div>
                 </a>
@@ -114,15 +130,15 @@
         <div class="pro">
             <div class="wrap">
                 <ul class="pro-nav">
-                    <li @click='changeColor(idx)'  :class="[idx==num?'active':'']"  v-for='(item,idx) in goodsList'  :key='item.id'><a>{{item.title}}</a>
+                    <li @click='changeColor(idx)'  :class="[idx==num?'active':'']"  v-for='(item,idx) in goodsList'  :key='idx'><a v-for='(item2,index2) in listName' :key='index2'>{{item2.title}}</a>
                         <ul  :class="[idx==num?'block pro-list':'pro-list none']" >
-                        <li v-for='list in item.list' :key='list.thiredId' @click="goGoodsDetail(list.thiredId)">
+                        <li v-for='list in item.content' :key='list.id' @click="goGoodsDetail(list.id)">
                             <a>
-                                <div class="pro-pic"><img :src='list.imgUrl' alt=""></div>
+                                <div class="pro-pic"><img :src='$imgUrl+list.img' alt=""></div>
                                 <div class="pro-des">
-                                    <p class="pro-name">{{list.goodsName}}</p>
-                                    <p class="pro-pri"><span>￥</span>{{list.goodsPrice | toPrice}}</p>
-                                    <p class="count">已售{{list.saleCount}}件</p>
+                                    <p class="pro-name">{{list.goodsname}}</p>
+                                    <p class="pro-pri"><span>￥</span>{{list.price | toPrice}}</p>
+                                    <p class="count">市场价 ￥{{list.market_price | toPrice}}</p>
                                     <input type="button"  value="立即抢购">
                                 </div>
                             </a>
@@ -137,7 +153,10 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
+import { getbanner, getseckill, getindexgoods } from '../../util/axios'
 export default {
+    
     data(){
         return{
             num:0,
@@ -180,118 +199,165 @@ export default {
                 name:"居家"
             },
             ],
+            images: [],
+            hotsList: [],
+            newsList: [],
             goodsList:[
-                {
-                    id:1,
-                    title:"热门推荐",
-                    list:[
-                        {
-                            thiredId:11,
-                            imgUrl:require("../../assets/images/index_images/shop_4.jpg"),
-                            goodsName:"雅诗兰黛染发膏",
-                            goodsPrice:"299",
-                            saleCount:800
+                
+            ],
+            goodsList:{
+               title:"热门推荐" 
+            },
+            listName:[{title:"热门推荐"}],
+            // ,{title:"发现新品"},{title:"全部商品"}
+            time: 30 * 60 * 60 * 1000,
+            timeData:{
+                hours:0,
+                minutes:0,
+                seconds:0
+            },
+            start:0,
+            end:0
+            // goodsList:[
+            //     {
+            //         id:1,
+            //         title:"热门推荐",
+            //         list:[
+            //             {
+            //                 goodsId:11,
+            //                 imgUrl:require("../../assets/images/index_images/shop_4.jpg"),
+            //                 goodsName:"雅诗兰黛染发膏",
+            //                 goodsPrice:"299",
+            //                 saleCount:800
 
-                        },
-                        {
-                            thiredId:22,
-                            imgUrl:require("../../assets/images/index_images/shop_6.jpg"),
-                            goodsName:"科颜氏洁面乳",
-                            goodsPrice:"123",
-                            saleCount:800
+            //             },
+            //             {
+            //                 goodsId:22,
+            //                 imgUrl:require("../../assets/images/index_images/shop_6.jpg"),
+            //                 goodsName:"科颜氏洁面乳",
+            //                 goodsPrice:"123",
+            //                 saleCount:800
 
-                        },{
-                            thiredId:33,
-                            imgUrl:require("../../assets/images/index_images/shop_7.jpg"),
-                            goodsName:"资生堂护发素",
-                            goodsPrice:"199",
-                            saleCount:800
+            //             },{
+            //                 goodsId:33,
+            //                 imgUrl:require("../../assets/images/index_images/shop_7.jpg"),
+            //                 goodsName:"资生堂护发素",
+            //                 goodsPrice:"199",
+            //                 saleCount:800
 
-                        }
-                    ]
-                },
-                {
-                    id:2,
-                    title:"发现好货",
-                    list:[
-                        {
-                            thiredId:44,
-                            imgUrl:require("../../assets/images/index_images/shop_6.jpg"),
-                            goodsName:"科颜氏洁面乳",
-                            goodsPrice:"123",
-                            saleCount:400
-                        },
-                        {
-                            thiredId:55,
-                            imgUrl:require("../../assets/images/index_images/shop_7.jpg"),
-                            goodsName:"资生堂护发素",
-                            goodsPrice:"199",
-                            saleCount:400
-                        },{
-                            thiredId:66,
-                            imgUrl:require("../../assets/images/index_images/shop_4.jpg"),
-                            goodsName:"雅诗兰黛染发膏",
-                            goodsPrice:"239",
-                            saleCount:400
-                        }
-                    ]
-                },
-                {
-                    id:3,
-                    title:"只看专场",
-                    list:[
-                        {
-                            thiredId:77,
-                            imgUrl:require("../../assets/images/index_images/shop_7.jpg"),
-                            goodsName:"资生堂护发素",
-                            goodsPrice:"199",
-                            saleCount:600
-                        },
-                        {
-                            thiredId:88,
-                            imgUrl:require("../../assets/images/index_images/shop_6.jpg"),
-                            goodsName:"科颜氏洁面乳",
-                            goodsPrice:"123",
-                            saleCount:600
-                        },{
-                            thiredId:99,
-                            imgUrl:require("../../assets/images/index_images/shop_4.jpg"),
-                            goodsName:"雅诗兰黛染发膏",
-                            goodsPrice:"239",
-                            saleCount:600
-                        }
-                    ]
-                },
-                {
-                    id:4,
-                    title:"只看商品",
-                    list:[
-                        {
-                            thiredId:1010,
-                            imgUrl:require("../../assets/images/index_images/shop_6.jpg"),
-                            goodsName:"科颜氏洁面乳",
-                            goodsPrice:"123",
-                            saleCount:300
-                        },
-                        {
-                            thiredId:1111,
-                            imgUrl:require("../../assets/images/index_images/shop_4.jpg"),
-                            goodsName:"雅诗兰黛染发膏",
-                            goodsPrice:"239",
-                            saleCount:300
-                        },{
-                            thiredId:1212,
-                            imgUrl:require("../../assets/images/index_images/shop_7.jpg"),
-                            goodsName:"资生堂护发素",
-                            goodsPrice:"199",
-                            saleCount:300
-                        }
-                    ]
-                }
-            ]
+            //             }
+            //         ]
+            //     },
+            //     {
+            //         id:2,
+            //         title:"发现好货",
+            //         list:[
+            //             {
+            //                 goodsId:44,
+            //                 imgUrl:require("../../assets/images/index_images/shop_6.jpg"),
+            //                 goodsName:"科颜氏洁面乳",
+            //                 goodsPrice:"123",
+            //                 saleCount:400
+            //             },
+            //             {
+            //                 goodsId:55,
+            //                 imgUrl:require("../../assets/images/index_images/shop_7.jpg"),
+            //                 goodsName:"资生堂护发素",
+            //                 goodsPrice:"199",
+            //                 saleCount:400
+            //             },{
+            //                 goodsId:66,
+            //                 imgUrl:require("../../assets/images/index_images/shop_4.jpg"),
+            //                 goodsName:"雅诗兰黛染发膏",
+            //                 goodsPrice:"239",
+            //                 saleCount:400
+            //             }
+            //         ]
+            //     },
+            //     {
+            //         id:3,
+            //         title:"只看专场",
+            //         list:[
+            //             {
+            //                 goodsId:77,
+            //                 imgUrl:require("../../assets/images/index_images/shop_7.jpg"),
+            //                 goodsName:"资生堂护发素",
+            //                 goodsPrice:"199",
+            //                 saleCount:600
+            //             },
+            //             {
+            //                 goodsId:88,
+            //                 imgUrl:require("../../assets/images/index_images/shop_6.jpg"),
+            //                 goodsName:"科颜氏洁面乳",
+            //                 goodsPrice:"123",
+            //                 saleCount:600
+            //             },{
+            //                 goodsId:99,
+            //                 imgUrl:require("../../assets/images/index_images/shop_4.jpg"),
+            //                 goodsName:"雅诗兰黛染发膏",
+            //                 goodsPrice:"239",
+            //                 saleCount:600
+            //             }
+            //         ]
+            //     },
+            //     {
+            //         id:4,
+            //         title:"只看商品",
+            //         list:[
+            //             {
+            //                 goodsId:1010,
+            //                 imgUrl:require("../../assets/images/index_images/shop_6.jpg"),
+            //                 goodsName:"科颜氏洁面乳",
+            //                 goodsPrice:"123",
+            //                 saleCount:300
+            //             },
+            //             {
+            //                 goodsId:1111,
+            //                 imgUrl:require("../../assets/images/index_images/shop_4.jpg"),
+            //                 goodsName:"雅诗兰黛染发膏",
+            //                 goodsPrice:"239",
+            //                 saleCount:300
+            //             },{
+            //                 goodsId:1212,
+            //                 imgUrl:require("../../assets/images/index_images/shop_7.jpg"),
+            //                 goodsName:"资生堂护发素",
+            //                 goodsPrice:"199",
+            //                 saleCount:300
+            //             }
+            //         ]
+            //     }
+            // ]
         }
     },
-        
+    mounted() {
+        //组件一加载 就调取并发处理
+        axios.all([getbanner(), getindexgoods(),getseckill()]).then(
+            axios.spread((banners, goods,seckList) => {
+                this.images = banners.list
+                this.goodsList = goods.list
+               
+                this.start = seckList.begintime
+                 this.end = seckList.endtime
+                //  let timer = this.end - new Date().getTime()
+                 this.timeData.hours=parseInt((this.end - new Date().getTime())/1000  / 60 / 60 % 24)
+
+                this.timeData.minutes=parseInt((this.end - new Date().getTime())/1000  / 60 % 60)
+
+                this.timeData.seconds=parseInt((this.end - new Date().getTime())/1000  % 60)
+                // 个位数前补零
+                if (this.timeData.hours < 10) {
+                    this.timeData.hours = '0' + this.timeData.hours
+                }
+                if (this.timeData.minutes < 10) {
+                    this.timeData.minutes = '0' + this.timeData.minutes
+                }
+                if (this.timeData.seconds < 10) {
+                    this.timeData.seconds = '0' + this.timeData.seconds
+                }
+                
+            })
+        )
+    },    
     methods:{
         changeColor(idx){
         this.num=idx;
@@ -316,9 +382,9 @@ export default {
                 } 
         })
         },
-        goGoodsList(){
+        goClassify(){
              this.$router.push({
-                path: "/goodsList",
+                path: "/classify",
                 // query: {
                 // id
                 // } 
@@ -330,5 +396,5 @@ export default {
 }
 </script>
 <style scoped>
-@import '../../assets/css/index.css'
+@import '../../assets/css/index.css';
 </style>

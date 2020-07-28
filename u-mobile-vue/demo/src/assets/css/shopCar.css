@@ -311,7 +311,7 @@ body {
   color: #a4a4a4;
   margin-top: 0.18rem;
 }
-.Settlement input {
+.Settlement .all2 {
   position: absolute;
   top: -0.01rem;
   right: 0;

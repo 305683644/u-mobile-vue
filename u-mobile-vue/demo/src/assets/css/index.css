@@ -236,12 +236,12 @@ body {
   position: relative;
   height: 2.91rem;
 }
-.banner a {
+/* .banner a {
   position: absolute;
   top: 0;
   left: 0;
-}
-.banner a img {
+} */
+.banner img {
   width: 7.5rem;
   height: 2.91rem;
 }
@@ -416,16 +416,16 @@ body {
 }
 .pro .pro-nav li {
   float: left;
-  width: 1.775rem;
-  height: 0.7rem;
+  width: 2.36rem;
+  height: 0.9rem;
   border: 1px solid #e4e4e4;
   box-sizing: border-box;
   text-align: center;
 }
 .pro .pro-nav li a {
-  font-size: 0.28rem;
+  font-size: 0.32rem;
   color: #070707;
-  line-height: 0.7rem;
+  line-height: 0.9rem;
 }
 .pro .pro-nav li.active {
   background-color: #f26b11;
@@ -436,7 +436,7 @@ body {
 }
 .pro .pro-list {
   position: absolute;
-  top: 14rem;
+  top: 14.1rem;
   left: 50%;
   width: 7.1rem;
   padding: 0.2rem;
@@ -461,6 +461,7 @@ body {
 .pro .pro-list li .pro-des {
   float: left;
   margin: 0.3rem 0 0 0.1rem;
+  text-align: left;
 }
 .pro .pro-list li .pro-des .pro-name {
   font-size: 0.3rem;
@@ -483,6 +484,7 @@ body {
 .pro .pro-list li .pro-des input {
   width: 1.64rem;
   height: 0.52rem;
+  line-height: 0.52rem;
   background-color: #f26b11;
   border-radius: 0.05rem;
   font-size: 0.24rem;

@@ -1,34 +1,42 @@
 <template>
     <div>
-        <div class="container">
+        <div class="container"  @click='origin'>
         <!-- 顶部 -->
         <top :title='title'></top>
+
+        
         <!-- 商品列表 -->
         <ul class="check-list">
-            <li v-for='(item,idx) in goodsList' :key="item.goodsId">
+            <template>
+                <v-touch @swipeleft='left(idx)' @swiperight='right(idx)' v-for='(item,idx) in carList' :key="item.id">
+                   <li  :style="idx==num ? 'left: -0.98rem' : ''">
                 <label>
                     <input type="checkbox" hidden >
                     <i  @click='changeCheck(idx)' :class="{'checked':item.checked}" ></i>
                 </label>
                 <div class="pro-pic">
-                    <img :src="item.img" alt="">
+                    <img :src="$imgUrl+item.img" alt="">
                 </div>
-                <div class="pro-detail">
-                    <P class="pro-name">{{item.name}}</P>
-                    <P class="pro-type">{{item.type}}</P>
-                    <P class="pro-pri">￥{{item.price*item.count | toPrice}}</P>
+                <div class="pro-detail" :goodsId="item.goodsId">
+                    <P class="pro-name">{{item.goodsname}}</P>
+                    <P class="pro-type">{{item.goodsname}}</P>
+                    <P class="pro-pri">￥{{item.price*item.num | toPrice}}</P>
                 </div>
                 <div class="button">
                     <input class="subtract" type="button" value="-" @click='sub(idx)'>
-                    <input class="text" type="text" :value="item.count">
+                    <input class="text" type="text" :value="item.num">
                     <input class="add" type="button" value="+" @click='add(idx)'>
                 </div>
                 <div class="del" @click='del(idx)'>
                     删除
                 </div>
-            </li>
+            </li>   
+                </v-touch>
+              
+            </template>
+            
         </ul>
-        
+        <van-empty v-if="carList==null" description="购物车空空如也，快去买买买" />
     </div>
     <!-- 结算 -->
     <div class="Settlement">
@@ -44,54 +52,65 @@
             总价：<span>￥{{allPrice | toPrice}}</span>
             <p class="state">不含运费，已优惠￥0.00</p>
         </div>
-        <input type="submit" value="去结算(1件)" @click="goPay">
+        <div class="all2" @click="goPay">去结算({{allCount}}件)</div>
     </div>
     </div>
 </template>
 <script>
+import { Toast } from 'vant'
+import { cartlist,cartdelete } from '../../util/axios'
 export default {
     data(){
         return{
             title:"购物车",
             checkAll:false,
-            
-            goodsList:[
-                {
-                    goodsId:1001,
-                    img:require("../../assets/images/shoping_car_images/shop.jpg"),
-                    name:"欧莱雅面霜",
-                    type:"规格：50g",
-                    price:123,
-                    count:1,
-                    checked:false
-                },
-                {
-                    goodsId:1002,
-                    img:require("../../assets/images/shoping_car_images/shop.jpg"),
-                    name:"欧莱雅面霜",
-                    type:"规格：50g",
-                    price:123,
-                    count:1,
-                    checked:false
-                },
-            ]
+            num:-1,
+            carList: [],
+            // goodsList:[
+            //     {
+            //         goodsId:1001,
+            //         img:require("../../assets/images/shoping_car_images/shop.jpg"),
+            //         name:"欧莱雅面霜",
+            //         type:"规格：50g",
+            //         price:123,
+            //         count:1,
+            //         checked:false
+            //     },
+            //     {
+            //         goodsId:1002,
+            //         img:require("../../assets/images/shoping_car_images/shop.jpg"),
+            //         name:"欧莱雅面霜",
+            //         type:"规格：50g",
+            //         price:123,
+            //         count:1,
+            //         checked:false
+            //     },
+            // ]
         }
+    },
+    mounted(){
+        this.getCarList()
     },
     computed: {
         allPrice() {
             let sum = 0
-            //map 映射  forEach reduce...
-            //数组.map
-            this.goodsList.map((item, index, arr) => {
-                //item代表数组的每一项
-                //index代表索引
-                // arr 代表原数组
-                //你可以return 一个新数组
+            this.carList.map((item, index, arr) => {
+                
                 if(item.checked){
-                sum += item.price * item.count
+                sum += item.price * item.num
                 }
             })
             return sum
+        },
+        allCount() {
+            let count = 0
+            this.carList.map((item, index, arr) => {
+                
+                if(item.checked){
+                count +=  item.num
+                }
+            })
+            return count
         }
     },
     watch:{
@@ -102,8 +121,31 @@ export default {
             }
         }
     },
+    
     methods:{
-
+        getCarList() {
+            cartlist({
+                uid: JSON.parse(sessionStorage.getItem('userInfo')).uid,
+            }).then((res) => {
+                if (res.code == 200) {
+                    this.carList = res.list
+                    this.carList.map(item=>{
+                        item.status = item.status==1 ? true :false
+                    })
+                } else {
+                    Toast(res.msg)
+                }
+            })
+        },
+        origin(){
+            this.num=-1
+        },
+        left(i){
+            this.num=i
+                },
+        right(i){
+            this.num!=i
+        },
         goPay(){
             this.$router.push({
                 path: "/pay",
@@ -136,6 +178,7 @@ export default {
         del(i) {
             //本地模拟删除
             this.goodsList.splice(i, 1)
+            this.num=-1
         },
         //封装一个全选事件
         allCheck() {
@@ -147,7 +190,16 @@ export default {
             })
         }
 
-    }
+    },
+    beforeRouteEnter(to, from, next) {
+        if (sessionStorage.getItem('userInfo')) {
+            next()
+        } else {
+            Toast('请先登录,才能查看购物车')
+            //直接给用户跳转到购物车
+            next('/login')
+        }
+    },
 }
 </script>
 <style scoped>

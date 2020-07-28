@@ -14,4 +14,6 @@ export default function toTime(timer) {
     //秒数
     let seconds = (date.getSeconds() + '').padStart(2, '0')
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+
+    // return timer.padStart(2, '0')
 }

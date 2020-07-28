@@ -6,6 +6,8 @@ import router from './router'
 import './assets/css/reset.css'
 import './assets/js/remScale.js'
 import './assets/font/iconfont.css'
+
+
 //封装全局过滤器
 //import toPrice from './filter/toPrice'
 //Vue.filter('toPrice',toPrice)
@@ -13,7 +15,8 @@ import gFilter from './filter'
 for(let i in gFilter){
   Vue.filter(i,gFilter[i])
 }
-
+//封装一个图片的服务器
+Vue.prototype.$imgUrl = 'http://localhost:3000'
 
 //封装一个全局组件
 import gCom from './common'
@@ -24,6 +27,12 @@ for(let i in gCom){
 
 Vue.config.productionTip = false
 
+import VueTouch from 'vue-touch'
+//引入vantUI框架
+import VantUI from 'vant'
+import 'vant/lib/index.css'
+Vue.use(VantUI)
+Vue.use(VueTouch, {name: 'v-touch'})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

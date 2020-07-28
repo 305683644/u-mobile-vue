@@ -2,25 +2,9 @@
     <div>
         <div class="container">
         <!-- 顶部 -->
-        <header class="header">
-            <div class="con">
-                <div class="wrap">
-                    <a  @click='$router.go(-1)'>
-                        <img src="../../assets/images/list_images/arrow.jpg" alt="">
-                    </a>
-                    <h2><a href="#">
-                        <img src="../../assets/images/list_images/logo.jpg" alt="">
-                    </a></h2>
-                    <div class="points">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <top :title='title'></top>
         <!-- 搜索 -->
-        <div class="search"><i></i><input type="text" placeholder="搜索商品"></div>
+        <!-- <div class="search"><i></i><input type="text" placeholder="搜索商品"></div> -->
                 <!-- 商品列表 -->
                 <ul class="pro-list ">
                     <li>
@@ -90,9 +74,18 @@
 </template>
 <script>
 export default {
+    data(){
+        return {
+            title:"商品列表",
+        }
+    }
     
 }
 </script>
 <style scoped>
-@import '../../assets/css/search.css'
+
+@import '../../assets/css/productList.css'
+/* .container{
+    padding-top:1.5rem ;
+} */
 </style>
