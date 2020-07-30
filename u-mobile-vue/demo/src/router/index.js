@@ -72,7 +72,7 @@ const r = new Router({
     }
   ]
 })
-// r.beforeEach((to,from,next)=>{
+r.beforeEach((to,from,next)=>{
 //   //当我们没有写next的时候，就被拦截
 //   //逻辑判断 如果你跳转的地址是登录就next,否则我就强制跳转到登录
 //  // next()
@@ -91,7 +91,9 @@ const r = new Router({
 //      return
 //   }
 //  next('/login')
-// })
+    document.documentElement.scrollTop = 0
+    next()
+})
 
 
 

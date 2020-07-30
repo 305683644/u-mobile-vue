@@ -6,6 +6,11 @@
                     <img src="../../assets/images/public/arrow.jpg" alt="">
                 </a>
       </div>
+      <div class="arrow2">
+        <a  @click='gohome'>
+                    <img src="../../assets/images/public/home.png" alt="">
+                </a>
+      </div>
       
       <!-- 顶部 -->
       <!-- <top :title='title'></top> -->
@@ -48,6 +53,9 @@ export default {
     };
   },
   methods: {
+    gohome(){
+      this.$router.push("/home");
+    },
     register(){
       this.$router.push("/register");
     },
@@ -101,10 +109,21 @@ export default {
 .arrow{
   text-align: left;
   margin-left:0.3rem ;
+  float: left;
+  
 }
 .arrow img {
-  width: 0.17rem;
-  height: 0.29rem;
+  width: 0.25rem;
+  /* height: 0.29rem; */
+}
+.arrow2{
+  float: right;
+  margin-right:0.5rem ;
+  margin-top: -0.15rem;
+}
+.arrow2 img {
+  width: 0.6rem;
+  /* height: 0.29rem; */
 }
 input {
   width: 6rem;

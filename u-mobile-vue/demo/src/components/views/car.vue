@@ -9,25 +9,26 @@
         <ul class="check-list">
             <template>
                 <v-touch @swipeleft='left(idx)' @swiperight='right(idx)' v-for='(item,idx) in carList' :key="item.id">
-                   <li  :style="idx==num ? 'left: -0.98rem' : ''">
+                   <li  :style="idx==num2 ? 'left: -0.98rem' : ''" @click='goDetail(item.goodsid)'>
                 <label>
                     <input type="checkbox" hidden >
-                    <i  @click='changeCheck(idx)' :class="{'checked':item.checked}" ></i>
+                    <i  @click='changeCheck(idx)' :class="{'checked':item.status}" ></i>
                 </label>
                 <div class="pro-pic">
                     <img :src="$imgUrl+item.img" alt="">
                 </div>
-                <div class="pro-detail" :goodsId="item.goodsId">
+                <div class="pro-detail" :goodsId="item.goodsid" >
                     <P class="pro-name">{{item.goodsname}}</P>
-                    <P class="pro-type">{{item.goodsname}}</P>
+                    <!-- <P class="pro-type">{{item.goodsname}}</P> -->
                     <P class="pro-pri">￥{{item.price*item.num | toPrice}}</P>
                 </div>
+                
                 <div class="button">
-                    <input class="subtract" type="button" value="-" @click='sub(idx)'>
-                    <input class="text" type="text" :value="item.num">
-                    <input class="add" type="button" value="+" @click='add(idx)'>
+                    <input class="subtract" type="button" value="-" @click='sub(item.id,idx)'>
+                    <input class="text" type="text" v-model="item.num" disabled  @change='change(item.goodsId,idx)' >
+                    <input class="add" type="button" value="+" @click='add(item.id,idx)'>
                 </div>
-                <div class="del" @click='del(idx)'>
+                <div class="del" @click='del(item.id,idx)'>
                     删除
                 </div>
             </li>   
@@ -58,34 +59,16 @@
 </template>
 <script>
 import { Toast } from 'vant'
-import { cartlist,cartdelete } from '../../util/axios'
+import { cartlist,cartdelete,cartadd,cartedit  } from '../../util/axios'
 export default {
     data(){
         return{
             title:"购物车",
             checkAll:false,
-            num:-1,
+            num2:-1,
+            num3:1,
             carList: [],
-            // goodsList:[
-            //     {
-            //         goodsId:1001,
-            //         img:require("../../assets/images/shoping_car_images/shop.jpg"),
-            //         name:"欧莱雅面霜",
-            //         type:"规格：50g",
-            //         price:123,
-            //         count:1,
-            //         checked:false
-            //     },
-            //     {
-            //         goodsId:1002,
-            //         img:require("../../assets/images/shoping_car_images/shop.jpg"),
-            //         name:"欧莱雅面霜",
-            //         type:"规格：50g",
-            //         price:123,
-            //         count:1,
-            //         checked:false
-            //     },
-            // ]
+            editorId:0,
         }
     },
     mounted(){
@@ -96,7 +79,7 @@ export default {
             let sum = 0
             this.carList.map((item, index, arr) => {
                 
-                if(item.checked){
+                if(item.status){
                 sum += item.price * item.num
                 }
             })
@@ -106,7 +89,7 @@ export default {
             let count = 0
             this.carList.map((item, index, arr) => {
                 
-                if(item.checked){
+                if(item.status){
                 count +=  item.num
                 }
             })
@@ -114,10 +97,10 @@ export default {
         }
     },
     watch:{
-        goodsList:{
+        carList:{
             deep:true,
             handler(){
-                this.checkAll = this.goodsList.every(item=>item.checked)
+                this.checkAll = this.carList.every(item=>item.status)
             }
         }
     },
@@ -127,24 +110,28 @@ export default {
             cartlist({
                 uid: JSON.parse(sessionStorage.getItem('userInfo')).uid,
             }).then((res) => {
+                console.log(res)
                 if (res.code == 200) {
-                    this.carList = res.list
+                    this.carList = res.list?res.list:null
                     this.carList.map(item=>{
                         item.status = item.status==1 ? true :false
+                        // item.num3=item.num
                     })
+
                 } else {
                     Toast(res.msg)
                 }
             })
         },
         origin(){
-            this.num=-1
+            this.num2=-1
         },
         left(i){
-            this.num=i
+            console.log(i)
+            this.num2=i
                 },
         right(i){
-            this.num!=i
+            this.num2!=i
         },
         goPay(){
             this.$router.push({
@@ -154,39 +141,88 @@ export default {
                 // } 
             })
         },
+        goDetail(id){
+            this.$router.push({
+                path:'/goodsDetail',
+                query:{
+                    id
+                }
+            })
+        },
         changeCheck(i){
-            this.goodsList[i].checked=!this.goodsList[i].checked
-            console.log(this.goodsList[i].checked);
+            this.carList[i].status=!this.carList[i].status
             
         },
         //数量相减事件
-        sub(i) {
+        sub(id,i) {
+             this.editorId=id
             //如果当前商品数量只剩一个的时候，不能自减
-            if (this.goodsList[i].count == 1) {
+            if (this.carList[i].num == 1) {
                 return
             }
-            //我们要减的是数组中的 count 属性
-            this.goodsList[i].count--
+            //我们要减的是数组中的 num 属性
+            this.carList[i].num--
+             cartedit({
+                    id:this.editorId,
+                    type:1//数量 
+                }).then(res=>{
+                     if(res.code==200){
+                         this.carList=res.list
+                         this.getCarList()
+                     }
+                })
+        },
+        change(id,i) {
+             this.editorId=id
+            //  this.carList[i].num=n
+             cartadd({
+                    uid:JSON.parse(sessionStorage.getItem('userInfo')).uid,
+                    goodsid:this.editorId,
+                    num:this.num3
+                }).then(res=>{
+                     if(res.code==200){
+                         this.carList=res.list
+                         this.getCarList()
+                     }
+                })
         },
         //数量相加事件
-        add(i) {
+        add(id,i) {
+            this.editorId=id
             //一定要跟产品经理确定你的需求
             //要跟库存 或者 购买限制。比如当前是秒杀商品，只能买3个
-            this.goodsList[i].count++
+            this.carList[i].num++
+            cartedit({
+                    id:this.editorId,
+                    type:2//数量 
+                }).then(res=>{
+                     if(res.code==200){
+                         this.carList=res.list
+                         this.getCarList()
+                     }
+                })
         },
         //删除事件
-        del(i) {
+        del(id,i) {
+            this.editorId=id
+            cartdelete({id:this.editorId}).then(res=>{
+                if (res.code == 200) {
+                    this.carList = res.list
+                    this.getCarList()
+                } else {
+                    Toast(res.msg)
+                }
+            })
             //本地模拟删除
-            this.goodsList.splice(i, 1)
+            this.carList.splice(i, 1)
             this.num=-1
         },
         //封装一个全选事件
         allCheck() {
             this.checkAll=!this.checkAll
-            console.log(this.checkAll);
             //利用map对商品列表进行遍历
-            this.goodsList.map(item => {
-                item.checked = this.checkAll
+            this.carList.map(item => {
+                item.status = this.checkAll
             })
         }
 
