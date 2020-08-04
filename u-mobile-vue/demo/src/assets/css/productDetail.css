@@ -97,7 +97,6 @@ body {
   background-color: #f1f1f1;
 }
 .container {
-  
   width: 7.5rem;
   margin: 0 auto;
   background-color: #f1f1f1;
@@ -153,16 +152,15 @@ h3 {
 }
 .main {
   width: 7.5rem;
-  /* height: 9.53rem; */
+  height: 9.53rem;
   background-color: #fff;
 }
 .main .main-pic {
   width: 7.5rem;
+  height: 7.48rem;
 }
 .main .main-pic img {
-  margin-bottom: 0.5rem ;
   width: 7.5rem;
-  height: 7rem;
 }
 .main .pro-des {
   width: 7.5rem;
@@ -398,14 +396,14 @@ h3 {
   left: 0.95rem;
   top: 0.23rem;
   display: block;
-  width: 0.24rem;
-  height: 0.24rem;
+  width: 0.32rem;
+  height: 0.32rem;
   background-color: #e6393d;
   border-radius: 50%;
-  font-size: 0.14rem;
+  font-size: 0.1rem;
   color: #fff;
   text-align: center;
-  line-height: 0.24rem;
+  line-height: 0.32rem;
 }
 .footer .con .join {
   width: 2.9rem;

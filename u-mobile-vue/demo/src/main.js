@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 import './assets/css/reset.css'
 import './assets/js/remScale.js'
 import './assets/font/iconfont.css'
@@ -37,6 +38,7 @@ Vue.use(VueTouch, {name: 'v-touch'})
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

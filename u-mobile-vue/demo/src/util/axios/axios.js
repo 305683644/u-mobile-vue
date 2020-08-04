@@ -20,6 +20,7 @@ http.interceptors.response.use(res=>{
     //直接返回 res.data 确定到数据
     if(res.data.code ==403){
         sessionStorage.removeItem('userInfo')
+        sessionStorage.removeItem('checkGoods')
         //如果token失效就返回登录页面
         router.push('/login')
            

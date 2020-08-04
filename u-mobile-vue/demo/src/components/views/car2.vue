@@ -8,16 +8,16 @@
         <!-- 商品列表 -->
         <ul class="check-list">
             <template>
-                <v-touch @swipeleft='left(idx)' @swiperight='right(idx)' v-for='(item,idx) in carList' :key="item.id">
-                   <li  :style="idx==num2 ? 'left: -0.98rem' : ''" >
-                <label  >
+                <v-touch @swipeleft='left(idx)' @swiperight='right(idx)' v-for='(item,idx) in getStateCarList' :key="item.id">
+                   <li  :style="idx==num2 ? 'left: -0.98rem' : ''" @click='goDetail(item.goodsid)'>
+                <label>
                     <input type="checkbox" hidden >
-                    <i @click.stop='changeCheck(item.id,idx)' :class="{'checked':item.status}" ></i>
+                    <i  @click='changeCheck(idx)' :class="{'checked':item.status}" ></i>
                 </label>
                 <div class="pro-pic">
-                    <img :src="$imgUrl+item.img" alt="" @click='goDetail(item.goodsid)'>
+                    <img :src="$imgUrl+item.img" alt="">
                 </div>
-                <div class="pro-detail" :goodsId="item.goodsid" @click='goDetail(item.goodsid)'>
+                <div class="pro-detail" :goodsId="item.goodsid">
                     <P class="pro-name">{{item.goodsname}}</P>
                     <!-- <P class="pro-type">{{item.goodsname}}</P> -->
                     <P class="pro-pri">￥{{item.price*item.num | toPrice}}</P>
@@ -27,7 +27,7 @@
                     <input class="text" type="text" v-model="item.num" disabled  @change='change(item.goodsId,idx)' >
                     <input class="add" type="button" value="+" @click.stop='add(item.id,idx)'>
                 </div>
-                <div class="del" @click.stop='del(item.id,idx)'>
+                <div class="del" @click='del(item.id,idx)'>
                     删除
                 </div>
             </li>   
@@ -36,7 +36,7 @@
             </template>
             
         </ul>
-        <van-empty v-if="carList.length==0" description="购物车空空如也，快去买买买" />
+        <van-empty v-if="carList==null" description="购物车空空如也，快去买买买" />
     </div>
     <!-- 结算 -->
     <div class="Settlement">
@@ -52,7 +52,7 @@
             总价：<span>￥{{allPrice | toPrice}}</span>
             <p class="state">不含运费，已优惠￥0.00</p>
         </div>
-        <div class="all2" @click="goPay()">去结算({{allCount}}件)</div>
+        <div class="all2" @click="goPay">去结算({{allCount}}件)</div>
     </div>
     </div>
 </template>
@@ -69,15 +69,17 @@ export default {
             num3:1,
             carList: [],
             editorId:0,
+            uid: JSON.parse(sessionStorage.getItem('userInfo')).uid
         }
     },
     mounted(){
-        this.getCarList()
+        this.getActionCarList()
     },
     computed: {
+        ...mapGetters(['getStateCarList']),
         allPrice() {
             let sum = 0
-            this.carList.map((item, index, arr) => {
+            this.getStateCarList.map((item, index, arr) => {
                 
                 if(item.status){
                 sum += item.price * item.num
@@ -87,7 +89,7 @@ export default {
         },
         allCount() {
             let count = 0
-            this.carList.map((item, index, arr) => {
+            this.getStateCarList.map((item, index, arr) => {
                 
                 if(item.status){
                 count +=  item.num
@@ -96,57 +98,52 @@ export default {
             return count
         }
     },
-    watch:{
-        carList:{
-            deep:true,
-            handler(){
-                this.checkAll = this.carList.every(item=>item.status)
-            }
-        }
-    },
+    // watch:{
+    //     getStateCarList:{
+    //         deep:true,
+    //         handler(){
+    //             this.checkAll = this.getStateCarList.every(item=>item.status)
+    //         }
+    //     }
+    // },
     
     methods:{
-        getCarList() {
-            cartlist({
-                uid: JSON.parse(sessionStorage.getItem('userInfo')).uid,
-            }).then((res) => {
-                console.log(res)
-                if (res.code == 200) {
-                    this.carList = res.list?res.list:null
-                    this.carList.map(item=>{
-                        item.status = item.status==1 ? true :false
-                        item.status=0
-                        this.num2=-1
-                    })
+        ...mapActions(['getActionCarList']),
+        // getCarList() {
+        //     cartlist({
+        //         uid: JSON.parse(sessionStorage.getItem('userInfo')).uid,
+        //     }).then((res) => {
+        //         console.log(res)
+        //         if (res.code == 200) {
+        //             this.carList = res.list?res.list:null
+        //             this.carList.map(item=>{
+        //                 item.status = item.status==1 ? true :false
+        //                 // item.num3=item.num
+        //                 this.$store.dispatch('getActionCarList', this.uid)
+        //             })
 
-                } else {
-                    Toast(res.msg)
-                }
-            })
-        },
+        //         } else {
+        //             Toast(res.msg)
+        //         }
+        //     })
+        // },
         origin(){
             this.num2=-1
         },
         left(i){
-            
+            console.log(i)
             this.num2=i
                 },
         right(i){
             this.num2!=i
         },
         goPay(){
-            let checkGoods=this.carList.filter((item,i)=>{
-                if(item.status==1){
-                    return item
-                }
+            this.$router.push({
+                path: "/pay",
+                // query: {
+                // id
+                // } 
             })
-            if(this.allCount!=0){
-               sessionStorage.setItem('checkGoods',JSON.stringify(checkGoods))
-                this.$router.push("/pay") 
-            }else{
-                Toast("您还没有选择商品")
-            }
-            
         },
         goDetail(id){
             this.$router.push({
@@ -156,56 +153,58 @@ export default {
                 }
             })
         },
-        changeCheck(id,i){
-            this.editorId=id
+        changeCheck(i){
             this.carList[i].status=!this.carList[i].status
             
         },
         //数量相减事件
         sub(id,i) {
              this.editorId=id
-             
+            //如果当前商品数量只剩一个的时候，不能自减
             if (this.carList[i].num == 1) {
                 return
             }
+            //我们要减的是数组中的 num 属性
             this.carList[i].num--
-            //  cartedit({
-            //         id:this.editorId,
-            //         type:1//数量 
-            //     }).then(res=>{
-            //          if(res.code==200){
-            //              this.carList=res.list
-            //              this.getCarList()
-                         
-            //          }
-            //     })
+             cartedit({
+                    id:this.editorId,
+                    type:1//数量 
+                }).then(res=>{
+                     if(res.code==200){
+                         this.carList=res.list
+                         this.getCarList()
+                     }
+                })
         },
         change(id,i) {
              this.editorId=id
-            //  cartadd({
-            //         uid:JSON.parse(sessionStorage.getItem('userInfo')).uid,
-            //         goodsid:this.editorId,
-            //         num:this.num3
-            //     }).then(res=>{
-            //          if(res.code==200){
-            //              this.carList=res.list
-            //              this.getCarList()
-            //          }
-            //     })
+            //  this.carList[i].num=n
+             cartadd({
+                    uid:JSON.parse(sessionStorage.getItem('userInfo')).uid,
+                    goodsid:this.editorId,
+                    num:this.num3
+                }).then(res=>{
+                     if(res.code==200){
+                         this.carList=res.list
+                         this.getCarList()
+                     }
+                })
         },
         //数量相加事件
         add(id,i) {
             this.editorId=id
+            //一定要跟产品经理确定你的需求
+            //要跟库存 或者 购买限制。比如当前是秒杀商品，只能买3个
             this.carList[i].num++
-            // cartedit({
-            //         id:this.editorId,
-            //         type:2//数量 
-            //     }).then(res=>{
-            //          if(res.code==200){
-            //              this.carList=res.list
-            //              this.getCarList()
-            //          }
-            //     })
+            cartedit({
+                    id:this.editorId,
+                    type:2//数量 
+                }).then(res=>{
+                     if(res.code==200){
+                         this.carList=res.list
+                         this.getCarList()
+                     }
+                })
         },
         //删除事件
         del(id,i) {

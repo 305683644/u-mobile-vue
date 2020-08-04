@@ -90,7 +90,8 @@
                             </template>
                             </van-count-down>
                         <!-- <span>19</span>:<span>30</span>:<span>29</span>  -->
-                        <i>秒杀</i></p>
+                        <i>秒杀</i>
+                        </p>
                     <img class="pic" src="../../assets/images/index_images/shop_5.jpg" alt="">
                     <div class="price">￥ <span>14.8</span></div>
                 </a>
@@ -286,4 +287,11 @@ export default {
 </script>
 <style scoped>
 @import '../../assets/css/index.css';
+.van-count-down{
+    width: 2.2rem;
+    box-sizing: border-box;
+    margin-top: 0.05rem; 
+    display: inline-block;
+    vertical-align: -0.05rem;
+}
 </style>

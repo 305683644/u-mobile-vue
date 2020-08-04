@@ -179,7 +179,6 @@ body {
   height: 0.26rem;
 }
 .pro-message {
-  height: 3.62rem;
   background-color: #fff;
   margin-top: 0.12rem;
   padding: 0 0.25rem;
@@ -325,7 +324,7 @@ body {
   padding: 0.26rem 0.25rem 0;
   font-size: 0.24rem;
   color: #6a6a6a;
-  padding-bottom: 1.48rem;
+  padding-bottom: 0.5rem;
 }
 .pri .pri-detail {
   height: 2.34rem;

@@ -12,18 +12,22 @@
             <a class="right" href=""><img src="../../assets/images/public/right.jpg" alt=""></a>
         </div>
         <!-- 商品信息 -->
-        <div class="pro-message">
-            <div class="pro-detail">
-                <div class="pro-pic"><img src="../../assets/images/order/shop.jpg" alt=""></div>
-                <p class="pro-name">雅诗兰黛护肤霜<span>规格：50g</span></p>
-                <p class="pro-pri"><span>￥</span>123.00</p>
-            </div>
-            <div class="count">
-                <p class="buy-count">购买数量:</p>
-                <div class="button">
-                    <input class="subtract" type="button" value="-">
-                    <input class="text" type="text" value="1">
-                    <input class="add" type="button" value="+">
+        <div class="pro-message" >
+            <div v-for='(item,idx) in payList' :key="item.goodsid">
+                <div class="pro-detail">
+                    <div class="pro-pic"><img :src="$imgUrl+item.img" alt=""></div>
+                    <p class="pro-name">{{item.goodsname}}
+                        <!-- <span>规格：50g</span> -->
+                        </p>
+                    <p class="pro-pri"><span>￥</span>{{item.price*item.num | toPrice}}</p>
+                </div>
+                <div class="count">
+                    <p class="buy-count">购买数量:</p>
+                    <div class="button">
+                        <input class="subtract" type="button" value="-" @click.stop='sub(item.id,idx)'>
+                        <input class="text" type="text" v-model="item.num" disabled >
+                        <input class="add" type="button" value="+" @click.stop='add(item.id,idx)'>
+                    </div>
                 </div>
             </div>
             <p class="express">配送方式<span>XX快递</span></p>
@@ -41,14 +45,14 @@
         <!-- 价格明细 -->
         <div class="pri">
             <div class="pri-detail">
-                <p>商品金额<span>￥120.00</span></p>
+                <p>商品金额<span>￥{{allPrice | toPrice}}</span></p>
                 <p>运费<span>+￥0.00</span></p>
                 <p>优惠券<span>-￥0.00</span></p>
                 <p>会员优惠<span>-￥0.00</span></p>
                 <p>积分抵扣<span>-￥0.00</span></p>
             </div>
             <div class="total">
-                <p>实付金额：<span>￥123.00</span></p>
+                <p>实付金额：<span>￥{{allPrice | toPrice}}</span></p>
                 <!-- <input type="submit" value="提交订单"> -->
             </div>
         </div>
@@ -63,8 +67,51 @@
 export default {
     data(){
         return{
-            title:"确认订单"
+            title:"确认订单",
+            payList:[]
         }
+    },
+    mounted() {
+        this.getPayList()
+    },
+    computed: {
+        allPrice() {
+            let sum = 0
+            this.payList.map((item, index, arr) => {
+               
+                sum += item.price * item.num
+                
+            })
+            return sum
+        },
+    },
+    methods:{
+        getPayList(){
+            this.payList=JSON.parse(sessionStorage.getItem('checkGoods'))
+            console.log(this.payList)
+        },
+        sub(id,i) {
+            if (this.payList[i].num == 1) {
+                return
+            }
+            this.payList[i].num--
+            let checkGoods=this.payList.map((item,i)=>{
+               
+                return item
+                
+            })
+             sessionStorage.setItem('checkGoods',JSON.stringify(checkGoods))
+        },
+        //数量相加事件
+        add(id,i) {
+            this.payList[i].num++
+            let checkGoods=this.payList.map((item,i)=>{
+               
+                return item
+                
+            })
+             sessionStorage.setItem('checkGoods',JSON.stringify(checkGoods))
+        },
     }
 }
 </script>

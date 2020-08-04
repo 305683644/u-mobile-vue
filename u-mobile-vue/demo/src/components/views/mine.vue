@@ -75,6 +75,7 @@ export default {
         quit(){
             //清除登录信息
             sessionStorage.removeItem('userInfo')
+            sessionStorage.removeItem('checkGoods')
             this.userInfo = {}
         }
     },

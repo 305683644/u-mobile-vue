@@ -150,7 +150,7 @@ export default {
                 cartadd({
                     uid:JSON.parse(sessionStorage.getItem('userInfo')).uid,
                     goodsid:this.$route.query.id,
-                    num:this.num2//数量 
+                    num:this.num2,//数量
                 })
                 .then(res=>{
                     if(res.code==200){
