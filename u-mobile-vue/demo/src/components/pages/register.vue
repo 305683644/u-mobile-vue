@@ -102,19 +102,18 @@ export default {
     //封装一个注册事件
     register() {
       //调取接口
-      register(this.userInfo).then((res) => {
+     
          //前端做空判断
          if (this.userInfo.nickname == "" || this.userInfo.phone== "" || this.userInfo.password == "" ) {
         Toast.fail("请填写完整信息");
-      } else 
-      if(!(this.reg.test(this.userInfo.phone))){
+      } else if(!(this.reg.test(this.userInfo.phone))){
             Toast.fail("手机号码格式错误");
-          }else
-           if(this.randstr!==this.code){
+          }else if(this.randstr!==this.code){
             Toast.fail("验证码错误");
           }else if(this.checkAll==false){
             Toast.fail("同意该协议才可注册");
           }else{
+             register(this.userInfo).then((res) => {
             if (res.code == 200) {
                     Toast.success(res.msg)
                     //清空输入框 并 跳转到登录界面
@@ -130,10 +129,8 @@ export default {
                 } else {
                     Toast.fail(res.msg)
                 }
+                })
           }
-        
-      
-      })
     },
   }
 };
