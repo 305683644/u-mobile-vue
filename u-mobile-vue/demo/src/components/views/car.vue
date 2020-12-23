@@ -112,7 +112,7 @@ export default {
             }).then((res) => {
                 console.log(res)
                 if (res.code == 200) {
-                    this.carList = res.list?res.list:null
+                    this.carList = res.list?res.list:[]
                     this.carList.map(item=>{
                         item.status = item.status==1 ? true :false
                         item.status=0
